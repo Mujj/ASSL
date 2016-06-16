@@ -14,16 +14,20 @@ $c=$_REQUEST['_'];
 if ($c=='verify') {verify();}
 
 echo <<<S_HTML
+
+<meta charset="utf-8">
 <html>
-<body bgcolor="#E6F2FF">
+<head>
+     <title>Free Wildcard Certificates from 80host</title>
+<body bgcolor="#aed5e3">
 <br><br>
 <form method="POST">
 <div id="content" align="center" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1">
   <center>
 <table border="0" cellpadding="3" cellspacing="0" style="border-collapse: collapse; font-family: Tahoma; font-size: 10pt; letter-spacing: 1" bordercolor="#111111">
   <tr>
-    <td width="100%" colspan="2" dir="ltr" style="color: #FFFFFF" bgcolor="#808080">
-    Paste your CSR below:</td>
+    <td width="100%" colspan="2" dir="ltr" style="color: #FFFFFF" bgcolor="4657af">
+    请输入你的CSR:</td>
   </tr>
   <tr>
     <td width="100%" colspan="2" style="padding: 0" dir="ltr">&nbsp;</td>
@@ -36,16 +40,16 @@ echo <<<S_HTML
     <td width="100%" colspan="2" style="padding: 0">&nbsp;</td>
     </tr>
   <tr>
-    <td width="100%" colspan="2" style="color: #FFFFFF" bgcolor="#808080">
-    Email Address:</td>
+    <td width="100%" colspan="2" style="color: #FFFFFF" bgcolor="4657af">
+    证书接收邮件地址:</td>
   </tr>
   <tr>
     <td width="100%" colspan="2" style="padding: 0">&nbsp;</td>
     </tr>
   <tr>
     <td width="50%" align="right">
-    <font size="1">(the certificate will be e-mailed here<br>
-    so make sure you enter it a correctly)</font></td>
+    <font size="1">(请务必输入正确.
+    )</font></td>
     <td width="50%">
     <input type="text" name="email" size="32" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
   </tr>
@@ -53,30 +57,30 @@ echo <<<S_HTML
     <td width="100%" colspan="2" style="padding: 0">&nbsp;</td>
     </tr>
   <tr>
-    <td width="100%" colspan="2" style="color: #FFFFFF" bgcolor="#808080">
-    Optional: <font size="1">(leave them blank to use defaults)</font></td>
+    <td width="100%" colspan="2" style="color: #FFFFFF" bgcolor="4657af">
+    必须输入,请不要随意填写. <font size="1">(请使用英文Or拼音)</font></td>
   </tr>
   <tr>
     <td width="100%" colspan="2" style="padding: 0">&nbsp;</td>
   </tr>
   <tr>
     <td width="50%" align="right">
-    <p dir="ltr">First Name:<br>
-    <font size="1">(only alphabets. 3-20 chars)</font></td>
+    <p dir="ltr">姓:<br>
+    <font size="1">(仅字母3-20个字符)</font></td>
     <td width="50%">
     <input type="text" name="fname" size="32" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
   </tr>
   <tr>
     <td width="50%" align="right">
-    <p dir="ltr">Last Name:<br>
-    <font size="1">(only alphabets. 3-20 chars)</font></td>
+    <p dir="ltr">名:<br>
+    <font size="1">(仅字母3-20个字符)</font></td>
     <td width="50%">
     <input type="text" name="lname" size="32" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
   </tr>
   <tr>
     <td width="50%" align="right">
-    <p dir="ltr">Phone:<br>
-    <font size="1">(only digits. 6-20 chars)</font></td>
+    <p dir="ltr">电话号码:<br>
+    <font size="1">(仅数字,6-20位)</font></td>
     <td width="50%">
     <input type="text" name="phone" size="32" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
   </tr>
@@ -85,14 +89,29 @@ echo <<<S_HTML
     </tr>
   <tr>
     <td width="100%" colspan="2" align="center">
-    <input name="next" onclick="check(this.form)" type="button" value="Verify &gt;" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
+    <input name="next" onclick="check(this.form)" type="button" value="校验 &gt;" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1"></td>
   </tr>
   </table>
-  </center>
+  <center>
+<br>
+<br>
+                                        <tr>
+                                            <td valign="top" class="footerContent">
+                                                 <a href="http://www.80host.com/specials.html">查看最新促销</a>
+                                                <span class="hide-mobile"> | </span>
+                                                <a href="http://www.80host.com">访问网站</a>
+                                                <span class="hide-mobile"> | </span>
+                                                <a href="https://my.80host.com/login.php">登陆账号</a>
+                                                <span class="hide-mobile"> | </span>
+                                                <a href="https://my.80host.com/submitticket.php">提交支持工单</a> <br />
+                                                Copyright &copy; 80host, All rights reserved.
+                                            </td>
+                                            </center>
 </div>
 <input type="hidden" name="_" value="verify">
 </form>
 
+<script src="https://s11.cnzz.com/stat.php?id=1259531462&web_id=1259531462" language="JavaScript"></script>
 <script>
 function check(f) {ajax("?", function(res) {eval(res);}, "ajax=1&_=verify&csr="+encodeURIComponent(f.csr.value)+"&email="+encodeURIComponent(f.email.value));}
 function ajax(B,A){this.bindFunction=function(E,D){return function(){return E.apply(D,[D])}};this.stateChange=function(D){if(this.request.readyState==4){this.callbackFunction(this.request.responseText)}};this.getRequest=function(){if(window.ActiveXObject){return new ActiveXObject("Microsoft.XMLHTTP")}else{if(window.XMLHttpRequest){return new XMLHttpRequest()}}return false};this.postBody=(arguments[2]||"");this.callbackFunction=A;this.url=B;this.request=this.getRequest();if(this.request){var C=this.request;C.onreadystatechange=this.bindFunction(this.stateChange,this);if(this.postBody!==""){C.open("POST",B,true);C.setRequestHeader("Content-type","application/x-www-form-urlencoded")}else{C.open("GET",B,true)}C.send(this.postBody)}};

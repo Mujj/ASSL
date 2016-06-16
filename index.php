@@ -6,7 +6,7 @@ define("SALT", "29d0be3d2492d99362169be3d4238cb35b4"); // IMPORTANT: Must enter 
 
 error_reporting(0);
 if (strlen(SALT) < 16) {die("system error: Min 16 character random string as SALT is required.");}
-chdir(dirname(__FILE__)) or die("system error: chdir");
+chdir(dirname(__FILE__)) or die("system error: chdirchoose one
 @mkdir("data");
 if ($argc) {process($argv);}
 if ($_REQUEST['id']) {status();}
@@ -108,7 +108,7 @@ echo <<<S_HTML
                                             </td>
                                             </center>
 </div>
-<input type="hidden" name="_" value="verify">
+<input type="hidden" name="_" value="校验">
 </form>
 
 <script src="https://s11.cnzz.com/stat.php?id=1259531462&web_id=1259531462" language="JavaScript"></script>
@@ -147,7 +147,7 @@ $md5=md5($fname.$lname.$email.$phone.$csr);
 if ($_REQUEST["ajax"])
 {
 echo <<<S_HTML
-if(confirm("The CSR you have provided belongs to the domain:\\n\\n$cn\\n\\nClick OK to proceed or cancel to change.")) {f.submit();}
+if(confirm("您输入的CSR域名为:\\n\\n$cn\\n\\n点击确定继续签发证书或点击取消返回更改.")) {f.submit();}
 S_HTML;
 }
 else
@@ -172,7 +172,7 @@ else {$d=session($id); extract($d);}
 $ve=$_REQUEST['vemail'];
 if ($ve && !$vemail && count($emails) && in_array($ve, $emails) && !$error && !$done)
 {
-session($id, 'status', "<u>$ve</u> selected as validation email address.<br>Submitting order..");
+session($id, 'status', "<u>$ve</u> 向你选择的邮件地址发送验证邮件并.<br>提交订单中..");
 extract(session($id, 'vemail', $ve));
 exec("php5 ".__FILE__." $id > /dev/null 2>&1 &");
 die(header("Location: ?id=$uid"));
@@ -186,7 +186,7 @@ $refresh='';
 }
 elseif ($error) {$icon='error.png'; $error="<font color='#FF0000'><h2>($error)</h2></font>";}
 elseif ($done) {$icon='success.png';}
-else {$icon='progress.gif'; $refresh=1; $info='<br>This page will refresh every 5 seconds. Sometimes it can take upto 2-3 minutes to show any status changes.';}
+else {$icon='progress.gif'; $refresh=1; $info='<br>该页面将每5秒刷新一次,有时最多需要2-3分钟才能完成提交.';}
 
 if ($refresh) {$refresh="<meta http-equiv='refresh' content='5;URL=?id=$uid'>";}
 
@@ -200,7 +200,7 @@ a:visited {color: blue; text-decoration: none;}
 a:hover {color: red;text-decoration: underline;}
 </style>
 </head>
-<body bgcolor="#E6F2FF">
+<body bgcolor="#aed5e3">
 <div align="center" style="font-family: Tahoma; font-size: 10pt; letter-spacing: 1">
 <br><img src="$icon"><br>$info<br><h3>$status</h3>
 $error
@@ -258,12 +258,12 @@ session($id, 'status', 'Logged in.. CSRF token retrieved.');
 
 if (!count($emails))
 {
-session($id, 'status', 'Generating order..');
+session($id, 'status', '创建订单状态..');
 $post = array('csrftoken'  => $csrf,'domain' => $cn,'first' => $fname,'last' => $lname,'email' => $email,'phone' => $phone);
 curl_setopt($ch, CURLOPT_URL, "https://leap.singlehop.com/account/actn/ssl-create/"); 
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 $d = curl_exec($ch);
-if (!preg_match('~\Q<meta http-equiv="refresh" content="0;URL=\'/account/ssl-purchase/\E(.+?)/\'"~', $d, $order))  {error($id, __LINE__, "Could not generate order.", $d);}
+if (!preg_match('~\Q<meta http-equiv="refresh" content="0;URL=\'/account/ssl-purchase/\E(.+?)/\'"~', $d, $order))  {error($id, __LINE__, "订单创建出错,请检查CSR信息并返回重试.", $d);}
 $order=$order[1];
 session($id, 'order', $order);
 session($id, 'status', "Order: <u>$order</u> generated. Fetching email addresses..");
@@ -273,7 +273,7 @@ $d = curl_exec($ch);
 if (!preg_match_all('/<option value="(.+?)"/', $d, $e)) {error($id, __LINE__, "Could not retrieve validation email addressess.", $d);}
 $e=$e[1];
 session($id, 'emails', $e);
-session($id, 'status', "Email addresses retrieved. Waiting for you to choose one:");
+session($id, 'status', "请选择一个邮件地址用于验证域名所有权(DV证书只验证域名所有权):");
 }
 
 elseif($vemail)
@@ -283,7 +283,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 curl_setopt($ch, CURLOPT_URL, "https://leap.singlehop.com/account/actn/ssl-purchase/$order/"); 
 $d = curl_exec($ch);
 if (strpos($d, '<meta http-equiv="refresh" content="0;URL=\'/account/ssl-finalize/\'" />')===false) {error($id, __LINE__, "Could not submit order.", $d);}
-session($id, 'status', "Process completed successfully.<br><br>You will recieve a email with validation link on this address: <u>$vemail</u>.<br>It can take from few minutes to a couple of hours for the mail to arrive in your Inbox.<br>You must visit that link & click on the \"I Approve\" button for your certificate to be issued.<br>The SSL certificate will be emailed to: <u>$email</u><br><br>");
+session($id, 'status', "过程成功完成.<br><br>您的这个邮件地址将会收到验证链接: <u>$vemail</u>.<br>它可能需要几分钟到几个小时才会发送到你的收件箱.<br>你必须访问邮件内的验证链接并点击 \"我同意(I Approve)\" 按钮才能颁发证书.<br>完整域名验证后txt格式的证书将被发送到这个邮件地址: <u>$email</u><br><br>");
 session($id, 'done', 1);
 }
 

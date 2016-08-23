@@ -322,5 +322,3 @@ return false;
 }
 
 ?>
-
-

@@ -6,7 +6,7 @@ define("SALT", "29d0be3d2492d99362169be3d4238cb35b4"); // IMPORTANT: Must enter 
 
 error_reporting(0);
 if (strlen(SALT) < 16) {die("system error: Min 16 character random string as SALT is required.");}
-chdir(dirname(__FILE__)) or die("system error: chdirchoose one
+chdir(dirname(__FILE__)) or die("system error: chdir");
 @mkdir("data");
 if ($argc) {process($argv);}
 if ($_REQUEST['id']) {status();}
